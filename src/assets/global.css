@@ -1,0 +1,21 @@
+:root {
+  --text-color: #d1d0c5;
+  background-color: #242424;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  color-scheme: light dark;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+}
+
+#root {
+  padding: 2rem;
+  min-width: calc(100vw - 4rem);
+  min-height: calc(100vh - 4rem);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
