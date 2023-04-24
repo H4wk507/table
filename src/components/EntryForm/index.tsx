@@ -1,85 +1,78 @@
-import { ChangeEvent, FormEvent, useState } from "react";
 import { userSchema } from "../../UserValidation";
 import styles from "./style.module.scss";
 import { useDispatch } from "react-redux";
 import { addPerson } from "../../store/reducers/personReducer";
-import { useForm } from "react-hook-form";
+import { FieldValues, useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 export default function EntryForm() {
-  const [formData, setFormData] = useState({
-    name: "",
-    age: "",
-    birthdate: "",
-    biography: "",
+  const { register, handleSubmit, reset, formState } = useForm({
+    resolver: yupResolver(userSchema),
   });
-  const [error, setError] = useState<string | null>(null);
-  const { register, control } = useForm();
+  const { errors } = formState;
   const dispatch = useDispatch();
 
-  const handleFormChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const submitForm = async (e: FormEvent) => {
-    e.preventDefault();
-    const isValidForm = await userSchema.isValid(formData);
+  const submitForm = async (formValues: FieldValues) => {
+    const isValidForm = await userSchema.isValid(formValues);
     if (isValidForm) {
       dispatch(
         addPerson({
-          ...formData,
+          ...formValues,
           marked: false,
           id: crypto.randomUUID(),
         })
       );
-      setFormData({ name: "", age: "", birthdate: "", biography: "" });
-      setError(null);
-    } else {
-      setError("Nieprawidłowe dane!");
+      reset();
     }
   };
 
   return (
     <>
-      <form className={styles.form} onSubmit={submitForm}>
-        <input
-          type="text"
-          name="name"
-          className={styles.name}
-          value={formData.name}
-          onChange={handleFormChange}
-          placeholder="Imię..."
-        />
-        <input
-          type="text"
-          name="age"
-          className={styles.age}
-          value={formData.age}
-          onChange={handleFormChange}
-          placeholder="Wiek..."
-        />
-        <input
-          type="date"
-          name="birthdate"
-          className={styles.birthdate}
-          value={formData.birthdate}
-          onChange={handleFormChange}
-          placeholder="Data urodzenia..."
-        />
-        <textarea
-          name="biography"
-          className={styles.biography}
-          value={formData.biography}
-          onChange={handleFormChange}
-          placeholder="Życiorys... Limit znaków: 250"
-        />
+      <form className={styles.form} onSubmit={handleSubmit(submitForm)}>
+        <div className={styles.name}>
+          <input
+            {...register("name")}
+            type="text"
+            className={styles["name-field"]}
+            placeholder="Imię..."
+          />
+          <div className={styles["form-error"]}>
+            {errors.name?.message as string}
+          </div>
+        </div>
+        <div className={styles.age}>
+          <input
+            {...register("age")}
+            type="text"
+            className={styles["age-field"]}
+            placeholder="Wiek..."
+          />
+          <div className={styles["form-error"]}>
+            {errors.age?.message as string}
+          </div>
+        </div>
+        <div className={styles.birthdate}>
+          <input
+            {...register("birthdate")}
+            type="date"
+            className={styles["birthdate-field"]}
+          />
+          <div className={styles["form-error"]}>
+            {errors.birthdate?.message as string}
+          </div>
+        </div>
+        <div className={styles.biography}>
+          <textarea
+            {...register("biography")}
+            className={styles["biography-field"]}
+            placeholder="Życiorys... Limit znaków: 250"
+          />
+          <div className={styles["form-error"]}>
+            {errors.biography?.message as string}
+          </div>
+        </div>
         <button className={styles["submit-form-btn"]}>Zatwierdź</button>
       </form>
-      {error && <div>{error}</div>}
     </>
   );
 }

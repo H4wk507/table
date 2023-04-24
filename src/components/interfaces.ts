@@ -9,3 +9,5 @@ export interface RowData extends Person {
   id: string;
   marked: boolean;
 }
+
+export type FormData = Partial<Person>;

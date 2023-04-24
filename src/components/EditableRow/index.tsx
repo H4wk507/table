@@ -8,6 +8,9 @@ import {
   markPerson,
   deletePerson,
 } from "../../store/reducers/personReducer";
+import styles from "./style.module.scss";
+import { ValidationError } from "yup";
+import { FormData } from "../interfaces";
 
 // TODO: declare a new type for props to avoid pollution
 export default function EditableRow({
@@ -18,7 +21,7 @@ export default function EditableRow({
   setEditId: (id: string | null) => void;
 }) {
   const [rowData, setRowData] = useState(person);
-  const [error, setError] = useState<string | null>(null);
+  const [errors, setErrors] = useState<FormData>({});
   const dispatch = useDispatch();
 
   const handleRowEdit = (
@@ -30,15 +33,20 @@ export default function EditableRow({
     });
   };
 
-  const saveChanges = async () => {
-    const isValid = await userSchema.isValid(rowData);
-    if (isValid) {
-      dispatch(savePerson({ id: person.id, rowData }));
-      setEditId(null);
-      setError(null);
-    } else {
-      setError("Nieprawidłowe dane");
-    }
+  const saveChanges = () => {
+    userSchema
+      .validate(rowData, { abortEarly: false })
+      .then(() => {
+        dispatch(savePerson({ id: person.id, rowData }));
+        setEditId(null);
+      })
+      .catch((err: ValidationError) => {
+        const errors: FormData = {};
+        err.inner.forEach((element: ValidationError) => {
+          errors[element.path as keyof FormData] = element.message;
+        });
+        setErrors(errors);
+      });
   };
 
   return (
@@ -56,39 +64,46 @@ export default function EditableRow({
             type="text"
             value={rowData.name}
             onChange={handleRowEdit}
-            required
-            placeholder="enter a name"
+            placeholder="Imię..."
             name="name"
           />
+          {errors.name && (
+            <div className={styles["error-text"]}>{errors.name}</div>
+          )}
         </td>
         <td>
           <input
             type="text"
             value={rowData.age}
             onChange={handleRowEdit}
-            required
-            placeholder="enter a age"
+            placeholder="Wiek..."
             name="age"
           />
+          {errors.age && (
+            <div className={styles["error-text"]}>{errors.age}</div>
+          )}
         </td>
         <td>
           <input
             type="text"
             value={rowData.birthdate}
             onChange={handleRowEdit}
-            required
-            placeholder="enter a birthday"
-            name="birthday"
+            name="birthdate"
           />
+          {errors.birthdate && (
+            <div className={styles["error-text"]}>{errors.birthdate}</div>
+          )}
         </td>
         <td>
           <textarea
             value={rowData.biography}
             onChange={handleRowEdit}
-            required
-            placeholder="enter a biography"
+            placeholder="Życiorys... Limit znaków: 250"
             name="biography"
           />
+          {errors.biography && (
+            <div className={styles["error-text"]}>{errors.biography}</div>
+          )}
         </td>
         <td>
           <ActionButton
@@ -103,7 +118,6 @@ export default function EditableRow({
           />
         </td>
       </tr>
-      {error && <div>{error}</div>}
     </>
   );
 }
