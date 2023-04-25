@@ -4,8 +4,10 @@ import { useDispatch } from "react-redux";
 import { addPerson } from "../../store/reducers/personReducer";
 import { FieldValues, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useTranslation } from "react-i18next";
 
 export default function EntryForm() {
+  const { t } = useTranslation();
   const { register, handleSubmit, reset, formState } = useForm({
     resolver: yupResolver(userSchema),
   });
@@ -20,7 +22,7 @@ export default function EntryForm() {
           ...formValues,
           marked: false,
           id: crypto.randomUUID(),
-        })
+        }),
       );
       reset();
     }
@@ -34,10 +36,10 @@ export default function EntryForm() {
             {...register("name")}
             type="text"
             className={styles["name-field"]}
-            placeholder="Imię..."
+            placeholder={t("name-placeholder") ?? ""}
           />
           <div className={styles["form-error"]}>
-            {errors.name?.message as string}
+            {t(errors.name?.message as string)}
           </div>
         </div>
         <div className={styles.age}>
@@ -45,10 +47,10 @@ export default function EntryForm() {
             {...register("age")}
             type="text"
             className={styles["age-field"]}
-            placeholder="Wiek..."
+            placeholder={t("age-placeholder") ?? ""}
           />
           <div className={styles["form-error"]}>
-            {errors.age?.message as string}
+            {t(errors.age?.message as string)}
           </div>
         </div>
         <div className={styles.birthdate}>
@@ -58,20 +60,20 @@ export default function EntryForm() {
             className={styles["birthdate-field"]}
           />
           <div className={styles["form-error"]}>
-            {errors.birthdate?.message as string}
+            {t(errors.birthdate?.message as string)}
           </div>
         </div>
         <div className={styles.biography}>
           <textarea
             {...register("biography")}
             className={styles["biography-field"]}
-            placeholder="Życiorys... Limit znaków: 250"
+            placeholder={t("biography-placeholder") ?? ""}
           />
           <div className={styles["form-error"]}>
-            {errors.biography?.message as string}
+            {t(errors.biography?.message as string) + " (250)"}
           </div>
         </div>
-        <button className={styles["submit-form-btn"]}>Zatwierdź</button>
+        <button className={styles["submit-form-btn"]}>{t("submit")}</button>
       </form>
     </>
   );

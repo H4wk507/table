@@ -14,19 +14,19 @@ const personSlice = createSlice({
     },
     deletePerson: (state, action) => {
       state.people = state.people.filter(
-        (person) => person.id !== action.payload.id
+        (person) => person.id !== action.payload.id,
       );
     },
     markPerson: (state, action) => {
       state.people = state.people.map((person) =>
         action.payload.id === person.id
           ? { ...person, marked: !person.marked }
-          : person
+          : person,
       );
     },
     savePerson: (state, action) => {
       state.people = state.people.map((person) =>
-        action.payload.id === person.id ? action.payload.rowData : person
+        action.payload.id === person.id ? action.payload.rowData : person,
       );
     },
     deleteMarkedPeople: (state) => {

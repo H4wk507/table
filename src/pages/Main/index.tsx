@@ -3,8 +3,10 @@ import EntryForm from "../../components/EntryForm";
 import styles from "./style.module.scss";
 import { useDispatch } from "react-redux";
 import { deleteMarkedPeople } from "../../store/reducers/personReducer";
+import { useTranslation } from "react-i18next";
 
 export default function Main() {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
 
   const deleteMarkedRows = () => {
@@ -18,9 +20,9 @@ export default function Main() {
         className={styles["delete-marked-btn"]}
         onClick={deleteMarkedRows}
       >
-        Usuń zaznaczone rekordy
+        {t("delete-marked")}
       </button>
-      <div className={styles["new-record-text"]}>Dodaj nowy rekord</div>
+      <div className={styles["new-record-text"]}>{t("new-record")}</div>
       <EntryForm />
     </main>
   );

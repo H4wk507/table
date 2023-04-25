@@ -3,6 +3,7 @@ import { stripLongString } from "../../utils/stripLongString";
 import ActionButton from "../ActionButton";
 import { RowData } from "../interfaces";
 import { deletePerson, markPerson } from "../../store/reducers/personReducer";
+import { useTranslation } from "react-i18next";
 
 export default function ReadOnlyRow({
   person,
@@ -11,6 +12,7 @@ export default function ReadOnlyRow({
   person: RowData;
   setEditId: (id: string | null) => void;
 }) {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const strippedBiography = stripLongString(person.biography);
 
@@ -31,12 +33,12 @@ export default function ReadOnlyRow({
         <ActionButton
           className="delete-row-btn"
           action={() => dispatch(deletePerson({ id: person.id }))}
-          btnText="Usuń"
+          btnText={t("delete") ?? ""}
         />
         <ActionButton
           className="edit-row-btn"
           action={() => setEditId(person.id)}
-          btnText="Edytuj"
+          btnText={t("edit") ?? ""}
         />
       </td>
     </tr>

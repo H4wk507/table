@@ -1,19 +1,19 @@
 .table-footer {
-    padding: 8px 0px;
-    font-size: 16px;
-    border-bottom-left-radius: 15px;
-    border-bottom-right-radius: 15px;
-  }
-  
-  .button {
-    border: none;
-    padding: 7px 14px;
-    border-radius: 10px;
-    cursor: pointer;
-    margin-right: 4px;
-    margin-left: 4px;
-  }
+  padding: 8px 0px;
+  font-size: 16px;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
 
-  .active-btn {
-    filter: brightness(60%);
-  }
+.button {
+  border: none;
+  padding: 7px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-right: 4px;
+  margin-left: 4px;
+}
+
+.active-btn {
+  filter: brightness(60%);
+}

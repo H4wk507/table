@@ -1,12 +1,12 @@
 import { object, string, number } from "yup";
 
 export const userSchema = object().shape({
-  name: string().required("Wymagane pole"),
+  name: string().required("required-field"),
   age: number()
-    .required("Wymagane pole")
-    .typeError("Podaj liczbę")
-    .positive("Podaj dodatnią liczbę")
-    .integer("Podaj liczbę całkowitą"),
-  birthdate: string().required("Wymagane pole"),
-  biography: string().max(250, "Przekroczono maksymalną liczbę znaków (250)"),
+    .required("required-field")
+    .typeError("number-error")
+    .positive("positive-number-error")
+    .integer("whole-number-error"),
+  birthdate: string().required("required-field"),
+  biography: string().max(250, "chars-limit"),
 });

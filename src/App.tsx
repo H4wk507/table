@@ -3,6 +3,7 @@ import Views from "./pages/Views";
 import PageNotFound from "./pages/PageNotFound";
 import Main from "./pages/Main";
 import Layout from "./components/Layout";
+import "./i18n";
 
 const router = createBrowserRouter([
   {

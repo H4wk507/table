@@ -11,8 +11,8 @@ import {
 import styles from "./style.module.scss";
 import { ValidationError } from "yup";
 import { FormData } from "../interfaces";
+import { useTranslation } from "react-i18next";
 
-// TODO: declare a new type for props to avoid pollution
 export default function EditableRow({
   person,
   setEditId,
@@ -20,12 +20,13 @@ export default function EditableRow({
   person: RowData;
   setEditId: (id: string | null) => void;
 }) {
+  const { t } = useTranslation();
   const [rowData, setRowData] = useState(person);
   const [errors, setErrors] = useState<FormData>({});
   const dispatch = useDispatch();
 
   const handleRowEdit = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     setRowData({
       ...rowData,
@@ -64,7 +65,7 @@ export default function EditableRow({
             type="text"
             value={rowData.name}
             onChange={handleRowEdit}
-            placeholder="Imię..."
+            placeholder={t("name-placeholder") ?? ""}
             name="name"
           />
           {errors.name && (
@@ -76,7 +77,7 @@ export default function EditableRow({
             type="text"
             value={rowData.age}
             onChange={handleRowEdit}
-            placeholder="Wiek..."
+            placeholder={t("age-placeholder") ?? ""}
             name="age"
           />
           {errors.age && (
@@ -98,7 +99,7 @@ export default function EditableRow({
           <textarea
             value={rowData.biography}
             onChange={handleRowEdit}
-            placeholder="Życiorys... Limit znaków: 250"
+            placeholder={t("biography-placeholder") ?? ""}
             name="biography"
           />
           {errors.biography && (
@@ -109,12 +110,12 @@ export default function EditableRow({
           <ActionButton
             className="delete-row-btn"
             action={() => dispatch(deletePerson({ id: person.id }))}
-            btnText="Usuń"
+            btnText={t("delete") ?? ""}
           />
           <ActionButton
             className="save-row-btn"
             action={saveChanges}
-            btnText="Zapisz"
+            btnText={t("save") ?? ""}
           />
         </td>
       </tr>

@@ -1,3 +1,6 @@
+import { useTranslation } from "react-i18next";
+
 export default function PageNotFound() {
-  return <div>404. Page not found!</div>;
+  const { t } = useTranslation();
+  return <div>{"404. " + t("page-not-found")}</div>;
 }

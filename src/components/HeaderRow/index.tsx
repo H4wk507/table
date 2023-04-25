@@ -1,12 +1,16 @@
+import { useTranslation } from "react-i18next";
+
 export default function HeaderRow() {
+  const { t } = useTranslation();
+
   return (
     <tr>
       <th></th>
-      <th>Imię</th>
-      <th>Wiek</th>
-      <th>Data urodzenia</th>
-      <th>Życiorys</th>
-      <th>Akcja</th>
+      <th>{t("name")}</th>
+      <th>{t("age")}</th>
+      <th>{t("birthdate")}</th>
+      <th>{t("biography")}</th>
+      <th>{t("action")}</th>
     </tr>
   );
 }

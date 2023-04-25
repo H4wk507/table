@@ -2,6 +2,8 @@ import { useEffect, ChangeEvent } from "react";
 import { RowData } from "../interfaces";
 import styles from "./style.module.scss";
 
+const tableRowsPerPage = [10, 20, 50];
+
 export default function TableFooter({
   range,
   setPage,
@@ -39,9 +41,11 @@ export default function TableFooter({
         </button>
       ))}
       <select onChange={handleChange}>
-        <option value="10">10</option>
-        <option value="20">20</option>
-        <option value="50">50</option>
+        {tableRowsPerPage.map((num) => (
+          <option key={num} value={num}>
+            {num}
+          </option>
+        ))}
       </select>
     </div>
   );
