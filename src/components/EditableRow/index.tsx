@@ -1,6 +1,6 @@
 import { ChangeEvent, useState } from "react";
 import { RowData, FormData } from "../interfaces";
-import { userSchema } from "../../UserValidation";
+import { userSchema } from "../../validation/userValidation";
 import ActionButton from "../ActionButton";
 import { useDispatch } from "react-redux";
 import {

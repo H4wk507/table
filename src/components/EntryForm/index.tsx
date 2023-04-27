@@ -1,4 +1,4 @@
-import { userSchema } from "../../UserValidation";
+import { userSchema } from "../../validation/userValidation";
 import styles from "./style.module.scss";
 import { useDispatch } from "react-redux";
 import { addPerson } from "../../store/reducers/personReducer";
