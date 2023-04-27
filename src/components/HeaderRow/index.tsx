@@ -5,7 +5,7 @@ export default function HeaderRow() {
 
   return (
     <tr>
-      <th></th>
+      <th>{t("select")}</th>
       <th>{t("name")}</th>
       <th>{t("age")}</th>
       <th>{t("birthdate")}</th>

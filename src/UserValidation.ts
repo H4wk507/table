@@ -1,4 +1,4 @@
-import { object, string, number } from "yup";
+import { object, string, number, date } from "yup";
 
 export const userSchema = object().shape({
   name: string().required("required-field"),
@@ -7,6 +7,9 @@ export const userSchema = object().shape({
     .typeError("number-error")
     .positive("positive-number-error")
     .integer("whole-number-error"),
-  birthdate: string().required("required-field"),
+  birthdate: date()
+    .max(new Date(Date.now()), "future-date")
+    .required("required-field")
+    .typeError("date-error"),
   biography: string().max(250, "chars-limit"),
 });

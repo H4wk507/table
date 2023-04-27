@@ -1,5 +1,5 @@
 import { ChangeEvent, useState } from "react";
-import { RowData } from "../interfaces";
+import { RowData, FormData } from "../interfaces";
 import { userSchema } from "../../UserValidation";
 import ActionButton from "../ActionButton";
 import { useDispatch } from "react-redux";
@@ -10,8 +10,8 @@ import {
 } from "../../store/reducers/personReducer";
 import styles from "./style.module.scss";
 import { ValidationError } from "yup";
-import { FormData } from "../interfaces";
 import { useTranslation } from "react-i18next";
+import Checkbox from "../Checkbox";
 
 export default function EditableRow({
   person,
@@ -53,14 +53,14 @@ export default function EditableRow({
   return (
     <>
       <tr key={person.id}>
-        <td>
-          <input
-            type="checkbox"
-            checked={person.marked}
+        <td data-cell={t("select")}>
+          <Checkbox
+            checkedPredicate={person.marked}
             onChange={() => dispatch(markPerson({ id: person.id }))}
+            className={"checkbox"}
           />
         </td>
-        <td>
+        <td data-cell={t("name")}>
           <input
             type="text"
             value={rowData.name}
@@ -69,10 +69,10 @@ export default function EditableRow({
             name="name"
           />
           {errors.name && (
-            <div className={styles["error-text"]}>{errors.name}</div>
+            <div className={styles["error-text"]}>{t(errors.name)}</div>
           )}
         </td>
-        <td>
+        <td data-cell={t("age")}>
           <input
             type="text"
             value={rowData.age}
@@ -81,21 +81,21 @@ export default function EditableRow({
             name="age"
           />
           {errors.age && (
-            <div className={styles["error-text"]}>{errors.age}</div>
+            <div className={styles["error-text"]}>{t(errors.age)}</div>
           )}
         </td>
-        <td>
+        <td data-cell={t("birthdate")}>
           <input
-            type="text"
+            type="date"
             value={rowData.birthdate}
             onChange={handleRowEdit}
             name="birthdate"
           />
           {errors.birthdate && (
-            <div className={styles["error-text"]}>{errors.birthdate}</div>
+            <div className={styles["error-text"]}>{t(errors.birthdate)}</div>
           )}
         </td>
-        <td>
+        <td data-cell={t("biography")}>
           <textarea
             value={rowData.biography}
             onChange={handleRowEdit}
@@ -103,10 +103,10 @@ export default function EditableRow({
             name="biography"
           />
           {errors.biography && (
-            <div className={styles["error-text"]}>{errors.biography}</div>
+            <div className={styles["error-text"]}>{t(errors.biography)}</div>
           )}
         </td>
-        <td>
+        <td data-cell={t("action")}>
           <ActionButton
             className="delete-row-btn"
             action={() => dispatch(deletePerson({ id: person.id }))}

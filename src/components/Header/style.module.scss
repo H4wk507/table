@@ -1,13 +1,40 @@
 .header {
-  color: var(--text-color);
+  color: var(--primary-text-color);
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   gap: 20px;
+  padding: 8px 0;
 }
 
-a:hover {
+.link:hover {
   cursor: pointer;
-  color: darkred;
+  color: var(--link-hover-color);
   transition: 0.4s;
+}
+
+.links-container {
+  color: var(--primary-text-color);
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  font-size: 1.2rem;
+}
+
+.language-container {
+  color: var(--primary-text-color);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1.2rem;
+}
+
+.language-selection {
+  color: var(--secondary-text-color);
+  background-color: var(--primary-text-color);
+  font-size: 1.2rem;
+  padding: 6px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
 }

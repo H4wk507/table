@@ -3,7 +3,7 @@
   display: flex;
   flex-direction: column;
   width: 320px;
-  gap: 8px;
+  gap: 16px;
 
   .name,
   .age,
@@ -11,31 +11,38 @@
   .biography {
     display: flex;
     flex-direction: column;
+    padding: 0 4px;
   }
 
   .name-field,
   .age-field,
   .birthdate-field,
   .biography-field {
-    color: var(--text-color);
-    padding: 4px;
+    box-sizing: border-box;
+    color: var(--secondary-text-color);
+    background: var(--primary-text-color);
+    font-size: 1.2rem;
+    padding: 12px;
     border: 1px solid rgba(0, 0, 0, 0.2);
     border-radius: 8px;
     outline: none;
   }
 
   .form-error {
-    font-size: 0.8rem;
-    color: red;
+    color: var(--error-color);
+    font-weight: 700;
+    font-size: 1rem;
   }
 }
 
 .submit-form-btn {
-  font-size: 16px;
-  color: var(--text-color);
+  color: var(--secondary-text-color);
+  background-color: var(--primary-text-color);
+  font-size: 1.2rem;
   border: none;
   border-radius: 8px;
-  padding: 6px;
+  padding: 12px;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.9));
 
   &:hover {
     cursor: pointer;

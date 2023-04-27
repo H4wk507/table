@@ -1,21 +1,26 @@
 :root {
-  --text-color: #d1d0c5;
-  background-color: #242424;
+  --primary-text-color: #fff;
+  --secondary-text-color: #181818;
+  --error-color: #ffcccc;
+  --link-hover-color: #b8dbdb;
+  --bg-color: #004949;
+  --checkbox-color: #ca87ff;
+  background-color: var(--bg-color);
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
-  color-scheme: light dark;
 }
 
 body {
+  box-sizing: border-box;
   margin: 0;
   min-height: 100vh;
 }
 
 #root {
-  padding: 2rem;
-  min-width: calc(100vw - 4rem);
-  min-height: calc(100vh - 4rem);
   display: flex;
   flex-direction: column;
+  padding: 2rem;
+  min-width: calc(100vw- 4rem);
+  min-height: calc(100vh - 4rem);
   gap: 20px;
 }

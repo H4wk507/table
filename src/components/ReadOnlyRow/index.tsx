@@ -4,6 +4,7 @@ import ActionButton from "../ActionButton";
 import { RowData } from "../interfaces";
 import { deletePerson, markPerson } from "../../store/reducers/personReducer";
 import { useTranslation } from "react-i18next";
+import Checkbox from "../Checkbox";
 
 export default function ReadOnlyRow({
   person,
@@ -18,18 +19,18 @@ export default function ReadOnlyRow({
 
   return (
     <tr key={person.id}>
-      <td>
-        <input
-          type="checkbox"
-          checked={person.marked}
+      <td data-cell={t("select")}>
+        <Checkbox
+          checkedPredicate={person.marked}
           onChange={() => dispatch(markPerson({ id: person.id }))}
+          className={"checkbox"}
         />
       </td>
-      <td>{person.name}</td>
-      <td>{person.age}</td>
-      <td>{person.birthdate}</td>
-      <td>{strippedBiography}</td>
-      <td>
+      <td data-cell={t("name")}>{person.name}</td>
+      <td data-cell={t("age")}>{person.age}</td>
+      <td data-cell={t("birthdate")}>{person.birthdate}</td>
+      <td data-cell={t("biography")}>{strippedBiography}</td>
+      <td data-cell={t("action")}>
         <ActionButton
           className="delete-row-btn"
           action={() => dispatch(deletePerson({ id: person.id }))}

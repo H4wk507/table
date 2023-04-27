@@ -1,17 +1,39 @@
 .table-footer {
-  padding: 8px 0px;
-  font-size: 16px;
-  border-bottom-left-radius: 15px;
-  border-bottom-right-radius: 15px;
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  font-size: 1.2rem;
 }
 
 .button {
+  color: var(--secondary-text-color);
+  background: var(--primary-text-color);
+  font-size: 1.2rem;
   border: none;
   padding: 7px 14px;
   border-radius: 10px;
   cursor: pointer;
-  margin-right: 4px;
-  margin-left: 4px;
+  margin: 4px 4px;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.9));
+}
+
+.start-btn,
+.prev-btn,
+.next-btn,
+.end-btn {
+  color: var(--secondary-text-color);
+  background: var(--primary-text-color);
+  font-size: 1.2rem;
+  padding: 8px;
+  border-radius: 4px;
+  margin: 4px 4px;
+  border: none;
+  cursor: pointer;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.9));
+
+  &:disabled {
+    cursor: not-allowed;
+  }
 }
 
 .active-btn {

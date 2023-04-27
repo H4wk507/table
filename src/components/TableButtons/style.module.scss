@@ -1,13 +1,23 @@
-.save-row-btn,
-.edit-row-btn,
-.delete-row-btn {
+.buttons {
+  display: flex;
+  gap: 16px;
+  margin: 4px 0;
+}
+
+.modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.delete-marked-btn,
+.new-record-btn {
   color: var(--secondary-text-color);
-  background-color: var(--primary-text-color);
-  padding: 4px 10px;
+  background: var(--primary-text-color);
   font-size: 1.2rem;
+  padding: 8px 8px;
   border-radius: 8px;
   border: none;
-  margin: 4px 16px;
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.9));
 
   &:hover {

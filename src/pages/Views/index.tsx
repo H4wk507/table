@@ -16,7 +16,7 @@ function FourColumnGrid<T>(props: Props<T>) {
       style={{
         display: "grid",
         gridTemplateColumns: `repeat(${numberOfColumns}, 1fr)`,
-        gap: "8px",
+        gap: "10px",
       }}
     >
       {items.map(renderItem)}
@@ -28,7 +28,7 @@ function MyCustomRender(props: RowData & { idx?: number }) {
   const { idx, ...person } = props;
 
   return (
-    <div>
+    <div style={{ color: "var(--primary-text-color)" }}>
       {`[${idx}]` ?? ""} {person.name} {person.age} {person.birthdate}{" "}
       {person.biography}
     </div>
@@ -41,7 +41,9 @@ export default function Views() {
   return (
     <FourColumnGrid
       items={people}
-      renderItem={(props, idx) => <MyCustomRender {...props} idx={idx} />}
+      renderItem={(props, idx) => (
+        <MyCustomRender key={idx} {...props} idx={idx} />
+      )}
     />
   );
 }

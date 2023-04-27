@@ -13,11 +13,20 @@ export default function Header() {
 
   return (
     <header className={styles.header}>
-      <a onClick={() => navigate("/main")}>main</a>
-      <a onClick={() => navigate("/views")}>views</a>
-      <div>
+      <div className={styles["links-container"]}>
+        <a className={styles.link} onClick={() => navigate("/main")}>
+          main
+        </a>
+        <a className={styles.link} onClick={() => navigate("/views")}>
+          views
+        </a>
+      </div>
+      <div className={styles["language-container"]}>
         {t("language")}
-        <select onChange={(e) => i18n.changeLanguage(e.target.value)}>
+        <select
+          className={styles["language-selection"]}
+          onChange={(e) => i18n.changeLanguage(e.target.value)}
+        >
           {Object.entries(languages).map(([locale, name]) => (
             <option key={locale} value={locale}>
               {name}

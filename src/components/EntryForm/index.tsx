@@ -5,8 +5,9 @@ import { addPerson } from "../../store/reducers/personReducer";
 import { FieldValues, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useTranslation } from "react-i18next";
+import { Ref, forwardRef } from "react";
 
-export default function EntryForm() {
+const EntryForm = forwardRef((_: unknown, ref: Ref<HTMLFormElement>) => {
   const { t } = useTranslation();
   const { register, handleSubmit, reset, formState } = useForm({
     resolver: yupResolver(userSchema),
@@ -20,8 +21,9 @@ export default function EntryForm() {
       dispatch(
         addPerson({
           ...formValues,
-          marked: false,
           id: crypto.randomUUID(),
+          marked: false,
+          birthdate: formValues.birthdate.toISOString().slice(0, 10),
         }),
       );
       reset();
@@ -30,7 +32,12 @@ export default function EntryForm() {
 
   return (
     <>
-      <form className={styles.form} onSubmit={handleSubmit(submitForm)}>
+      <form
+        tabIndex={-1}
+        className={styles.form}
+        ref={ref}
+        onSubmit={handleSubmit(submitForm)}
+      >
         <div className={styles.name}>
           <input
             {...register("name")}
@@ -70,11 +77,13 @@ export default function EntryForm() {
             placeholder={t("biography-placeholder") ?? ""}
           />
           <div className={styles["form-error"]}>
-            {t(errors.biography?.message as string) + " (250)"}
+            {t(errors.biography?.message as string)}
           </div>
         </div>
         <button className={styles["submit-form-btn"]}>{t("submit")}</button>
       </form>
     </>
   );
-}
+});
+
+export default EntryForm;
