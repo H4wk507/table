@@ -17,16 +17,18 @@ const personSlice = createSlice({
         (person) => person.id !== action.payload.id,
       );
     },
-    markPerson: (state, action) => {
-      state.people = state.people.map((person) =>
-        action.payload.id === person.id
-          ? { ...person, marked: !person.marked }
-          : person,
-      );
+    markPeople: (state, action) => {
+      state.people = state.people.map((person) => {
+        return action.payload.ids.indexOf(person.id) !== -1
+          ? { ...person, marked: true }
+          : person;
+      });
     },
     savePerson: (state, action) => {
       state.people = state.people.map((person) =>
-        action.payload.id === person.id ? action.payload.rowData : person,
+        action.payload.rowData.id === person.id
+          ? action.payload.rowData
+          : person,
       );
     },
     deleteMarkedPeople: (state) => {
@@ -38,7 +40,7 @@ const personSlice = createSlice({
 export const {
   addPerson,
   deletePerson,
-  markPerson,
+  markPeople,
   savePerson,
   deleteMarkedPeople,
 } = personSlice.actions;
